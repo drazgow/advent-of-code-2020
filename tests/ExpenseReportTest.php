@@ -26,17 +26,35 @@ class ExpenseReportTest extends TestCase
         ];
     }
 
-    public function testExpenseReport()
+    public function testExpenseReportWithTwo()
     {
         $report = new ExpenseReport();
         $result = $report->find(["1721", "299"]);
         $this->assertSame(514579, $result);
     }
 
+    public function testExpenseReportWithThree()
+    {
+        $report = new ExpenseReport();
+        $result = $report->find(["979", "366", "675"]);
+        $this->assertSame(241861950, $result);
+    }
+
     public function testExpenseWithTwo()
     {
         $expense = new YearFinder();
         $result = $expense->find(2020, $this->expenses);
-        $this->assertSame(["1721", "299"], $result);
+
+        sort($result);
+        $this->assertSame(["299", "1721"], $result);
+    }
+
+    public function testExpenseWithThree()
+    {
+        $expense = new YearFinder(3);
+        $result = $expense->find(2020, $this->expenses);
+
+        sort($result);
+        $this->assertSame(["366", "675", "979"], $result);
     }
 }

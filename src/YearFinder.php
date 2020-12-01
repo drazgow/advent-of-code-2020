@@ -6,17 +6,55 @@ namespace Aoc;
 
 class YearFinder
 {
+    private int $numbers;
+
+    public function __construct(int $numbers = 2)
+    {
+        $this->numbers = $numbers;
+    }
+
     public function find(int $year, array $amount): array
     {
         $length = count($amount);
-        foreach ($amount as $key => $component1) {
-            for ($i = $key + 1; $i < $length; $i++) {
-                $component2 = $amount[$i];
-                if ($year === ((int)$component1 + (int)$component2)) {
-                    return [$component1, $component2];
-                }
+
+        $component[] = [];
+        $init = -1;
+
+        $req = $this->req($init, $this->numbers - 1, $amount, $length, $component, function($component) use ($year) {
+            if ($year === $this->sum($component)) {
+                return $component;
+            }
+            return null;
+        });
+
+        return $req;
+    }
+
+    private function req($init, $step, $amount, $length, $component, callable $callable)
+    {
+        for ($i = $init + 1; $i < $length; $i++) {
+//            echo ($step . ":" . $i . " -> ");
+            $component[$step] = $amount[$i];
+            if ($step === 0) {
+                $res = $callable($component);
+            } else {
+                $res = $this->req($i, $step - 1, $amount, $length, $component, $callable);
+            }
+            if ($res !== null) {
+                return $res;
             }
         }
-        return [];
+        return null;
+    }
+
+    private function sum(array $component)
+    {
+        return array_reduce(
+            $component,
+            function ($prev, $item) {
+                return $prev + (int)$item;
+            },
+            0
+        );
     }
 }
