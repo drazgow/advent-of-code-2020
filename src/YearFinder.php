@@ -30,6 +30,29 @@ class YearFinder
         return $req;
     }
 
+    public function find3Loops(int $year, array $amount): array
+    {
+        $length = count($amount);
+
+        $component[] = [];
+        $init = -1;
+
+        for ($i = $init + 1; $i < $length; $i++) {
+            $component[0] = $amount[$i];
+            for ($j = $i + 1; $j < $length; $j++) {
+                $component[1] = $amount[$j];
+                for ($k = $j + 1; $k < $length; $k++) {
+                    $component[2] = $amount[$k];
+                    if ($year === $this->sum($component)) {
+                        return $component;
+                    }
+                }
+            }
+        }
+
+        return [];
+    }
+
     private function req($init, $step, $amount, $length, $component, callable $callable)
     {
         for ($i = $init + 1; $i < $length; $i++) {
