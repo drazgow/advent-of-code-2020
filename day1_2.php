@@ -12,15 +12,17 @@ $expenses = array_map(function ($item) {
     return (int) $item;
 }, $expensesString);
 
-var_dump($expenses);
 
 //var_dump(count($expenses));exit();
 $expense = new YearFinder(3);
 $time1 = time();
-$result = $expense->find(2020, $expenses);
-var_dump($result);
+$resultF = $expense->find3Boost(2020, $expenses);
 
 $report = new ExpenseReport();
-echo $report->find($result);
+$result =  $report->find($resultF);
+$time = time() - $time1;
+echo $result;
 echo PHP_EOL . "time: ";
-echo time() - $time1;
+echo $time;
+echo PHP_EOL;
+print_r($resultF);

@@ -71,12 +71,14 @@ class YearFinder
 
         $seen = [];
         for ($i = 0; $i < $length; $i++) {
-            $diff = $year - (int)$amount[$i];
-            if (in_array($diff, $seen)) {
-                return [$amount[$i], (string)$diff];
-            }
+            for ($j = $i + 1; $j < $length; $j++) {
+                $diff = $year - $amount[$i] - $amount[$j];
+                if (in_array($diff, $seen)) {
+                    return [$amount[$i], $amount[$j], $diff];
+                }
 
-            $seen[] = $amount[$i];
+                $seen[] = $amount[$j];
+            }
         }
 
         return [];
