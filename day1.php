@@ -8,8 +8,12 @@ include_once './src/ExpenseReport.php';
 
 $expenses = file('data/day1.txt');
 $expense = new YearFinder();
-$result = $expense->find(2020, $expenses);
+
+$time1 = microtime(true);
+$result = $expense->find2Boost(2020, $expenses);
 var_dump($result);
 
 $report = new ExpenseReport();
 echo $report->find($result);
+echo PHP_EOL . "time: ";
+echo microtime(true) - $time1;

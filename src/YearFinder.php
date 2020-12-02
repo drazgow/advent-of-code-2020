@@ -30,6 +30,43 @@ class YearFinder
         return $req;
     }
 
+    public function find2Loops(int $year, array $amount): array
+    {
+        $length = count($amount);
+
+        $component[] = [];
+        $init = -1;
+
+        for ($i = $init + 1; $i < $length; $i++) {
+            $component[0] = $amount[$i];
+            for ($j = $i + 1; $j < $length; $j++) {
+                $component[1] = $amount[$j];
+                if ($year === $this->sum($component)) {
+                    return $component;
+                }
+            }
+        }
+
+        return [];
+    }
+
+    public function find2Boost(int $year, array $amount): array
+    {
+        $length = count($amount);
+
+        $seen = [];
+        for ($i = 0; $i < $length; $i++) {
+            $diff = $year - (int)$amount[$i];
+            if (in_array($diff, $seen)) {
+                return [$amount[$i], (string)$diff];
+            }
+
+            $seen[] = $amount[$i];
+        }
+
+        return [];
+    }
+
     public function find3Loops(int $year, array $amount): array
     {
         $length = count($amount);

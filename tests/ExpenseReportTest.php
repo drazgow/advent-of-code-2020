@@ -49,6 +49,24 @@ class ExpenseReportTest extends TestCase
         $this->assertSame(["299", "1721"], $result);
     }
 
+    public function testExpenseWithTwoLoops()
+    {
+        $expense = new YearFinder();
+        $result = $expense->find2Loops(2020, $this->expenses);
+
+        sort($result);
+        $this->assertSame(["299", "1721"], $result);
+    }
+
+    public function testExpenseWithTwoLoopsBoost()
+    {
+        $expense = new YearFinder();
+        $result = $expense->find2Boost(2020, $this->expenses);
+
+        sort($result);
+        $this->assertSame(["299", "1721"], $result);
+    }
+
     public function testExpenseWithThree()
     {
         $expense = new YearFinder(3);
