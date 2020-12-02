@@ -126,7 +126,7 @@ final class Versions
   'symplify/smart-file-system' => 'v7.3.18@06b5bcdf4cafbc55ea8a497888f2e71d9b0cd837',
   'theseer/tokenizer' => '1.2.0@75a63c33a8577608444246075ea0af0d052e452a',
   'webmozart/assert' => '1.9.1@bafc69caeb4d49c39fd0779086c03a3738cbb389',
-  'vendor_name/e2020' => 'No version set (parsed as 1.0.0)@',
+  'vendor_name/e2020' => 'dev-master@33c584606572b648dc3524e6b8f9bffbf5f5f80a',
 );
 
     private function __construct()
