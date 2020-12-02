@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace Tests;
 
 use Aoc\Password\Counter;
+use Aoc\Password\LetterPositionsValidator;
 use Aoc\Password\Parser;
-use Aoc\Password\PasswordValidator;
+use Aoc\Password\LetterOccurrencesValidator;
 use PHPUnit\Framework\TestCase;
 
 class PasswordTest extends TestCase
@@ -31,20 +32,44 @@ class PasswordTest extends TestCase
 
     public function testValidPassword()
     {
-        $validator = new PasswordValidator();
+        $validator = new LetterOccurrencesValidator();
         $this->assertTrue($validator->validate([1,3], 'a', "abcde"));
     }
 
     public function testInvalidPassword()
     {
-        $validator = new PasswordValidator();
+        $validator = new LetterOccurrencesValidator();
         $this->assertFalse($validator->validate([1,3], 'b', "cdefg"));
+    }
+
+    public function testValidPasswordWhenOneLetterInPosition()
+    {
+        $validator = new LetterPositionsValidator();
+        $this->assertTrue($validator->validate([1,3], 'a', "abcde"));
+    }
+
+    public function testInvalidPasswordWhenNoLettersInPositions()
+    {
+        $validator = new LetterPositionsValidator();
+        $this->assertFalse($validator->validate([1,3], 'b', "cdefg"));
+    }
+
+    public function testInvalidPasswordWhenTwoLettersInPositions()
+    {
+        $validator = new LetterPositionsValidator();
+        $this->assertFalse($validator->validate([2,9], 'c', "ccccccccc"));
     }
 
     public function testCounter()
     {
-        $counter = new Counter($this->passwords, new Parser(), new PasswordValidator());
+        $counter = new Counter($this->passwords, new Parser(), new LetterOccurrencesValidator());
         $this->assertSame(2, $counter->count());
+    }
+
+    public function testCounterWithPositons()
+    {
+        $counter = new Counter($this->passwords, new Parser(), new LetterPositionsValidator());
+        $this->assertSame(1, $counter->count());
     }
 
 
