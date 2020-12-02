@@ -6,7 +6,14 @@ use Aoc\YearFinder;
 include_once './src/YearFinder.php';
 include_once './src/ExpenseReport.php';
 
-$expenses = file('data/day1_2.txt');
+$expensesString = file('data/day1_2.txt');
+
+$expenses = array_map(function ($item) {
+    return (int) $item;
+}, $expensesString);
+
+var_dump($expenses);
+
 //var_dump(count($expenses));exit();
 $expense = new YearFinder(3);
 $time1 = time();

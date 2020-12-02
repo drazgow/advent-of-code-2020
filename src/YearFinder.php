@@ -52,6 +52,21 @@ class YearFinder
 
     public function find2Boost(int $year, array $amount): array
     {
+        $seen = [];
+        foreach ($amount as $item) {
+            $diff = $year - $item;
+            if (in_array($diff, $seen)) {
+                return [$item, $diff];
+            }
+
+            $seen[] = $item;
+        }
+
+        return [];
+    }
+
+    public function find3Boost(int $year, array $amount): array
+    {
         $length = count($amount);
 
         $seen = [];

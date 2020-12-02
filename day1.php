@@ -6,7 +6,12 @@ use Aoc\YearFinder;
 include_once './src/YearFinder.php';
 include_once './src/ExpenseReport.php';
 
-$expenses = file('data/day1.txt');
+$expensesString = file('data/day1.txt');
+
+$expenses = array_map(function ($item) {
+    return (int) $item;
+}, $expensesString);
+
 $expense = new YearFinder();
 
 $time1 = microtime(true);
