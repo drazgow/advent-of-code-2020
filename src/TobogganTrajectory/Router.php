@@ -21,27 +21,43 @@ class Router
         $this->length = mb_strlen($map[0] ?? "");
     }
 
-    public function findTrees(bool $printPath = false): int
+    public function findTrees($toDown, $toRight, bool $printPath = false): int
     {
+        $row = 0;
         $right = 0;
         $trees = 0;
         foreach ($this->map as $path) {
             $char = substr($path, $right, 1);
 
-            if ($char === '#') {
-                $trees++;
-                $newPath = substr_replace($path, "X", $right, 1);
+            if (!($row % $toDown)) {
+                if ($char === '#') {
+                        $trees++;
+                    $newPath = substr_replace($path, "X", $right, 1);
+                } else {
+                    $newPath = substr_replace($path, "O", $right, 1);
+                }
+                $right += $toRight;
+                if ($right >= $this->length) {
+                    $right -= $this->length;
+                }
             } else {
-                $newPath = substr_replace($path, "O", $right, 1);
+                $newPath = $path;
             }
             if ($printPath) {
                 echo $newPath;
                 echo PHP_EOL;
             }
-            $right += 3;
-            if ($right >= $this->length) {
-                $right -= $this->length;
-            }
+            $row++;
+
+        }
+        return $trees;
+    }
+
+    public function findMultipliedTreesInSlopes(array $slopes): int
+    {
+        $trees = 1;
+        foreach ($slopes as $right) {
+            $trees *= $this->findTrees($right[0], $right[1], true);
         }
         return $trees;
     }

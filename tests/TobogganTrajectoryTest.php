@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 class TobogganTrajectoryTest extends TestCase
 {
     private array $map = [];
+    private array $slopes = [];
 
     protected function setUp(): void
     {
@@ -26,21 +27,43 @@ class TobogganTrajectoryTest extends TestCase
             "#...##....#",
             ".#..#...#.#",
         ];
+        $this->slopes = [
+            [1,1,2],
+            [1,3,7],
+            [1,5,3],
+            [1,7,4],
+            [2,1,2],
+
+        ];
     }
 
     public function testFindTreesInSlope()
     {
+        foreach ($this->slopes as $right) {
+            $this->assertFindTreesInSlope($right[0], $right[1], $right[2]);
+        }
+    }
+    public function assertFindTreesInSlope($row, $right, $expected)
+    {
         $router = new Router($this->map);
-        $trees = $router->findTrees();
-        $this->assertEquals(7, $trees);
+        $trees = $router->findTrees($row, $right);
+        $this->assertEquals($expected, $trees);
+    }
+
+
+    public function testMultipliedTriesInSlopes()
+    {
+        $router = new Router($this->map);
+        $trees = $router->findMultipliedTreesInSlopes($this->slopes);
+        $this->assertEquals(336, $trees);
     }
 
     public function testFindTreesInBigMap()
     {
         $map = file('data/day3_1.txt', FILE_IGNORE_NEW_LINES);
         $router = new Router($map);
-        $trees = $router->findTrees();
-        $this->assertEquals(7, $trees);
+        $trees = $router->findTrees(1, 3);
+        $this->assertEquals(272, $trees);
     }
 
 }
