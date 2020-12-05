@@ -14,7 +14,7 @@ $result = $parser->parse("1-3 a: abcde");
 $this->assertSame([[1,3], 'a', "abcde"], $result);
 
 $time1 = microtime(true);
-$result = $expense->find2Boost(2020, $expenses);
+$result = $expense->find2Boost(2020, $input);
 var_dump($result);
 
 $report = new ExpenseReport();
