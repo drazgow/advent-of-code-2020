@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use Aoc\CustomCustoms\Grouper;
+use Aoc\CustomCustoms\GrouperEveryone;
 use Aoc\TobogganTrajectory\Router;
 use PHPUnit\Framework\TestCase;
 
@@ -44,6 +45,12 @@ class CustomCustomsTest extends TestCase
         $grouper = new Grouper($this->input);
 
         $this->assertEquals(11, $grouper->sum());
+    }
 
+    public function testEveryoneSumYesesInGroups(): void
+    {
+        $grouper = new GrouperEveryone($this->input);
+
+        $this->assertEquals(6, $grouper->sum());
     }
 }
