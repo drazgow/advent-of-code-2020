@@ -12,14 +12,15 @@ include_once './src/Password/Parser.php';
 include_once './src/Password/PasswordValidator.php';
 include_once './src/Password/LetterPositionsValidator.php';
 
-$expenses = file('data/day2_1.txt');
+/** @var array $input */
+$input = file('data/day2_1.txt');
 
+$time1 = microtime(true);
 
-//var_dump(count($expenses));exit();
-$time1 = time();
-$counter = new Counter($expenses, new Parser(), new LetterPositionsValidator());
+$counter = new Counter($input, new Parser(), new LetterPositionsValidator());
 $result = $counter->count();
-$time = time() - $time1;
+
+$time = microtime(true) - $time1;
 echo $result;
 echo PHP_EOL . "time: ";
 echo $time;

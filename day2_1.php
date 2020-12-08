@@ -11,13 +11,15 @@ include_once './src/Password/Parser.php';
 include_once './src/Password/PasswordValidator.php';
 include_once './src/Password/LetterOccurrencesValidator.php';
 
+/** @var array $expenses */
 $expenses = file('data/day2_1.txt');
 
+$time1 = microtime(true);
 
-$time1 = time();
 $counter = new Counter($expenses, new Parser(), new LetterOccurrencesValidator());
 $result = $counter->count();
-$time = time() - $time1;
+
+$time = microtime(true) - $time1;
 echo $result;
 echo PHP_EOL . "time: ";
 echo $time;

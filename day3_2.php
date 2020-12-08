@@ -4,7 +4,8 @@ use Aoc\TobogganTrajectory\Router;
 
 include_once './src/TobogganTrajectory/Router.php';
 
-$expenses = file('data/day3_1.txt', FILE_IGNORE_NEW_LINES);
+/** @var array $input */
+$input = file('data/day3_1.txt', FILE_IGNORE_NEW_LINES);
 
 $slopes = [
     [1,1,2],
@@ -15,11 +16,10 @@ $slopes = [
 
 ];
 
-//var_dump(count($expenses));exit();
-$time1 = time();
-$router = new Router($expenses);
+$time1 = microtime(true);
+$router = new Router($input);
 $result = $router->findMultipliedTreesInSlopes($slopes);
-$time = time() - $time1;
+$time = microtime(true) - $time1;
 echo $result;
 echo PHP_EOL . "time: ";
 echo $time;

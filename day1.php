@@ -6,6 +6,7 @@ use Aoc\YearFinder;
 include_once './src/YearFinder.php';
 include_once './src/ExpenseReport.php';
 
+/** @var array $expensesString */
 $expensesString = file('data/day1.txt');
 
 $expenses = array_map(function ($item) {
