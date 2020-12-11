@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use Aoc\EncodingError\Calculator;
+use Aoc\EncodingError\SumCalculator;
 use PHPUnit\Framework\TestCase;
 
 class EncodingErrorTest extends TestCase
@@ -44,4 +45,9 @@ class EncodingErrorTest extends TestCase
         $this->assertEquals(127, $calculator->firstNotSum());
     }
 
+    public function testContiguousSetOfNumbersProducesSumWhichIsInvalidNumber(): void
+    {
+        $calculator = new SumCalculator($this->input, 127);
+        $this->assertEquals(62, $calculator->sum());
+    }
 }
