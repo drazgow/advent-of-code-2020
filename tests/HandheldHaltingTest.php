@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests;
 
 use Aoc\HandheldHalting\Compiler;
+use Aoc\HandheldHalting\CompilerWrongInstruction;
 use PHPUnit\Framework\TestCase;
 
 class HandheldHaltingTest extends TestCase
@@ -26,11 +28,18 @@ class HandheldHaltingTest extends TestCase
         ];
     }
 
-    public function testFindTreesInSlope(): void
+    public function testFindInfiniteLoop(): void
     {
         $compiler = new Compiler($this->input);
         $acc = $compiler->compile();
         $this->assertEquals(5, $acc);
+    }
+
+    public function testFindWrongInstruction(): void
+    {
+        $compiler = new CompilerWrongInstruction($this->input);
+        $acc = $compiler->compile();
+        $this->assertEquals(8, $acc);
     }
 
 }
